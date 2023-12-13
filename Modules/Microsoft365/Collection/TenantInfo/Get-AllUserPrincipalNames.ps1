@@ -1,1 +1,0 @@
-Get-Mailbox -ResultSize Unlimited | Select-Object UserPrincipalName
