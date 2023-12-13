@@ -1,7 +1,7 @@
 .\Modules\Reload-Modules.ps1
 Import-Module .\Modules\Logging\Logging.psm1
 Import-Module .\Modules\Microsoft365\Authentication\M365Auth.psm1
-Import-Module .\Modules\Microsoft365\Collection\MailboxAuditLogs\Get-MailboxAuditLogs.psm1
+Import-Module .\Modules\Microsoft365\Collection\MailboxAuditLogs\MailboxAuditLogs.psm1
 
 function Get-AllMailboxAuditLogsSubroutine {
     param (
