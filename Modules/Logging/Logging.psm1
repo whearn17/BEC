@@ -1,4 +1,4 @@
-function Write-ScreenLog {
+function Write-ConsoleLog {
     param (
         [String]$Message,
         [String]$Level
@@ -17,7 +17,7 @@ function Write-ScreenLog {
     }
 }
 
-function Write-FileLog {
+function Out-FileLog {
     param (
         [String]$Message,
         [String]$Level
