@@ -38,3 +38,6 @@ function Out-FileLog {
     # Append the log message to the file
     Add-Content -Path $global:LogFile -Value $logMessage
 }
+
+Export-ModuleMember -Function Out-FileLog
+Export-ModuleMember -Function Write-ConsoleLog
