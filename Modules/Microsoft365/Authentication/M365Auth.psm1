@@ -3,4 +3,4 @@ function Connect-M365 {
     Connect-ExchangeOnline
 }
 
-Connect-M365
+Export-ModuleMember -Function Connect-M365

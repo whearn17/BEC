@@ -39,4 +39,4 @@ function Get-AllMailboxAuditLogs {
     return $Results
 }
 
-Get-AllMailboxAuditLogs # FIGURE THIS OUT IT RETURNS SOMETHING YOU IDIOT 
+Export-ModuleMember -Function Get-AllMailboxAuditLogs
