@@ -38,5 +38,3 @@ function Get-AllMailboxAuditLogs {
     # Return all collected audit log entries
     return $Results
 }
-
-Export-ModuleMember -Function Get-AllMailboxAuditLogs
