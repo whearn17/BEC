@@ -2,7 +2,9 @@
 Import-Module .\Modules\Logging\Logging.psm1
 Import-Module .\Modules\Microsoft365\Authentication\M365Auth.psm1
 Import-Module .\Modules\Microsoft365\Collection\MailboxAuditLogs\MailboxAuditLogs.psm1
-Import-Module .\Modules\Microsoft365\Collection\AuthenticationLogs\TenantAuthenticationLogs.psm1
+Import-Module .\Modules\Microsoft365\Collection\AuditLogs\AuditLogs.psm1
+
+$global:LogFile = ".\Logs\test.log"
 
 function main {
 
