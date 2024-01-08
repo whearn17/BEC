@@ -1,0 +1,2 @@
+Connect-AzureAd
+Connect-ExchangeOnline
