@@ -2,21 +2,7 @@
 Import-Module .\Modules\Logging\Logging.psm1
 Import-Module .\Modules\Microsoft365\Authentication\M365Auth.psm1
 Import-Module .\Modules\Microsoft365\Collection\MailboxAuditLogs\MailboxAuditLogs.psm1
-
-function Get-AllMailboxAuditLogsSubroutine {
-    param (
-        [string[]]$UserPrincipalNames,
-        [string]$DomainName
-    )
-
-    $ExchangeMailboxAuditLogs = @()
-
-    foreach ($UserPrincipalName in $UserPrincipalNames) {
-        $ExchangeMailboxAuditLogs += Get-AllMailboxAuditLogs -UserPrincipalName $UserPrincipalName -StartDate -EndDate # FILL THIS OUT
-    }
-
-    $ExchangeMailboxAuditLogs | Export-Csv -Path "$(Get-Location)\$($DomainName)" -NoTypeInformation
-}
+Import-Module .\Modules\Microsoft365\Collection\AuthenticationLogs\TenantAuthenticationLogs.psm1
 
 function main {
 
@@ -35,7 +21,7 @@ function main {
 
     Write-ConsoleLog -Message "Gathering user mailbox audit logs" -Level "info"
     Out-FileLog -Message "Gathering user mailbox audit logs" -Level "info"
-    Get-AllMailboxAuditLogsSubroutine -UserPrincipalNames $AllUserPrincipalNames -DomainName $TenantDomainName
+    Get-MailboxAuditLogs -UserPrincipalNames $AllUserPrincipalNames -DomainName $TenantDomainName
 }
 
 main

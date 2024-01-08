@@ -1,17 +1,3 @@
-param (
-    # Start date and time for audit log search
-    [Parameter(Mandatory = $true)]
-    [DateTime]$searchStartDate,
-
-    # End date and time for audit log search
-    [Parameter(Mandatory = $true)]
-    [DateTime]$searchEndDate,
-
-    # Default output path for saving the audit logs
-    [Parameter(Mandatory = $true)]
-    [string]$auditLogOutputPath = "C:\temp\"
-)
-
 # Specifies the type of operation to search in audit logs
 $auditOperationType = "UserLoggedIn"
 
@@ -53,7 +39,17 @@ function Search-AuditLog($startDate, $endDate, $sessionID) {
 }
 
 # Retrieves all audit records within the specified date range
-function Get-AllAuditRecords($startDate, $endDate) {
+function Get-AuthenticationLogs {
+    param (
+        # Start date and time for audit log search
+        [Parameter(Mandatory = $true)]
+        [DateTime]$searchStartDate,
+
+        # End date and time for audit log search
+        [Parameter(Mandatory = $true)]
+        [DateTime]$searchEndDate
+    )
+    
     $currentStartDate = $startDate
     $processingIntervalDays = 1 # Process one day at a time, adjust as needed
 
@@ -70,5 +66,4 @@ function Get-AllAuditRecords($startDate, $endDate) {
     }
 }
 
-# Start the audit log retrieval process
-Get-AllAuditRecords $searchStartDate $searchEndDate
+Export-ModuleMember -Function Get-AuthenticationLogs

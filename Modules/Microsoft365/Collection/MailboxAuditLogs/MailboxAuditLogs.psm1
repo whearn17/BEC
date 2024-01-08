@@ -1,16 +1,19 @@
-param
-(
-    [Parameter(Mandatory = $true)]
-    [string]$UserPrincipalName,
+function Get-MailboxAuditLogs {
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [string[]]$UserPrincipalNames,
 
-    [Parameter(Mandatory = $true)]
-    [datetime]$StartDate,
+        [Parameter(Mandatory = $true)]
+        [datetime]$StartDate,
 
-    [Parameter(Mandatory = $true)]
-    [datetime]$EndDate
-)
+        [Parameter(Mandatory = $true)]
+        [datetime]$EndDate,
 
-function Get-AllMailboxAuditLogs {
+        [Parameter(Mandatory = $true)]
+        [datetime]$TenantDomainName
+    )
+
     # Initialize an array to hold the results
     [array]$Results = @()
 
@@ -38,3 +41,5 @@ function Get-AllMailboxAuditLogs {
     # Return all collected audit log entries
     return $Results
 }
+
+Export-ModuleMember -Function Get-MailboxAuditLogs

@@ -1,6 +1,6 @@
 Import-Module ..\Logging\Logging.psm1
 
-function Upload-S3ZipFile {
+function Copy-ToS3 {
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory = $true)]
@@ -54,4 +54,4 @@ function Upload-S3ZipFile {
     }
 }
 
-Export-ModuleMember -Function Upload-S3ZipFile
+Export-ModuleMember -Function Copy-ToS3
