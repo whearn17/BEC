@@ -1,3 +1,5 @@
+Import-Module ..\..\..\Logging\Logging.psm1
+
 function Get-AuditLogs {
     param (
         [Parameter(Mandatory = $true)]
@@ -7,19 +9,19 @@ function Get-AuditLogs {
         [DateTime]$SearchStartDate,
 
         [Parameter(Mandatory = $true)]
-        [DateTime]$SearchEndDate,
+        [string]$AuditLogOutputPath,
 
         [Parameter(Mandatory = $true)]
-        [string]$AuditLogOutputPath
+        [string]$ErrorLogPath
     )
 
     $maximumRetryAttempts = 3
     $processingIntervalDays = 1 # Adjust as needed
     $currentStartDate = $SearchStartDate
 
-    while ($currentStartDate -lt $SearchEndDate) {
+    while ($currentStartDate -lt (Get-Date)) {
         $currentEndDate = $currentStartDate.AddDays($processingIntervalDays)
-        if ($currentEndDate -gt $SearchEndDate) { $currentEndDate = $SearchEndDate }
+        if ($currentEndDate -gt (Get-Date)) { $currentEndDate = (Get-Date) }
 
         $sessionID = [Guid]::NewGuid().ToString() + "_" + "ExtractLogs" + (Get-Date).ToString("yyyyMMddHHmmssfff")
         $currentRetryCount = 0
@@ -35,18 +37,23 @@ function Get-AuditLogs {
                 break
             }
             catch {
-                Write-Host "Error encountered: $($_.Exception.Message). Retrying..." -ForegroundColor Yellow
+                Write-ConsoleLog -Message "Error encountered: $($_.Exception.Message). Retrying..." -Level "warning"
+                Out-FileLog -Message "Error encountered: $($_.Exception.Message). Retrying..." -Level "warning" -LogPath $ErrorLogPath
                 Start-Sleep -Seconds 10
                 $currentRetryCount++
             }
         }
 
         if ($currentRetryCount -eq $maximumRetryAttempts) {
-            Write-Host "Error after $maximumRetryAttempts retries. Continuing to next batch..." -ForegroundColor Red
+            Write-ConsoleLog "Error after $maximumRetryAttempts retries. Continuing to next batch..." -Level "warning"
+            Out-FileLog "Error after $maximumRetryAttempts retries. Continuing to next batch..." -Level "warning" -LogPath $ErrorLogPath
         }
 
         $currentStartDate = $currentEndDate
     }
+
+    Write-ConsoleLog -Message "Finished searching audit log for $($EventTypes)" -Level "info"
+    Out-FileLog -Message "Finished searching audit log for $($EventTypes)" -Level "info" -LogPath $ErrorLogPath
 }
 
-Export-ModuleMember -Function Get-AuthenticationLogs
+Export-ModuleMember -Function Get-AuditLogs
