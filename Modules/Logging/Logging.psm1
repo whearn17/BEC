@@ -20,7 +20,8 @@ function Write-ConsoleLog {
 function Out-FileLog {
     param (
         [String]$Message,
-        [String]$Level
+        [String]$Level,
+        [String]$LogPath
     )
 
     # Construct the log message similar to Write-ScreenLog
@@ -36,7 +37,7 @@ function Out-FileLog {
     }
 
     # Append the log message to the file
-    Add-Content -Path $global:LogFile -Value $logMessage
+    Add-Content -Path $LogPath -Value $logMessage
 }
 
 Export-ModuleMember -Function Out-FileLog
