@@ -51,11 +51,11 @@ function main {
 
     Write-ConsoleLog -Message "Gathering user authentication logs" -Level "info"
     Out-FileLog -Message "Gathering user authentication logs" -Level "info" -LogPath $LogFile
-    Get-AuditLogs -SearchStartDate (Get-Date).AddDays(-90) -EndDate Get-Date -EventTypes $AuthenticationEvents -AuditLogOutputPath $AuthenticationLogOutput
+    Get-AuditLogs -SearchStartDate (Get-Date).AddDays(-90) -EventTypes $AuthenticationEvents -AuditLogOutputPath $AuthenticationLogOutput -ErrorLogPath $LogFile
 
     Write-ConsoleLog -Message "Gathering user inbox rule logs" -Level "info"
     Out-FileLog -Message "Gathering user inbox rule logs" -Level "info" -LogPath $LogFile
-    Get-AuditLogs -SearchStartDate (Get-Date).AddDays(-90) -EndDate Get-Date -EventTypes $InboxRuleEvents -AuditLogOutputPath $InboxRulesLogOutput
+    Get-AuditLogs -SearchStartDate (Get-Date).AddDays(-90) -EventTypes $InboxRuleEvents -AuditLogOutputPath $InboxRulesLogOutput -ErrorLogPath $LogFile
 }
 
 main
